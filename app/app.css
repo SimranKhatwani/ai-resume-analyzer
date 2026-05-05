@@ -27,11 +27,15 @@ main {
   @apply min-h-screen pt-10;
 }
 h1 {
-  @apply max-sm:text-[3rem] text-6xl  text-gradient leading-tight xl:tracking-[-2px] font-semibold;
+  @apply block w-full max-sm:text-[3rem] text-6xl text-gradient leading-tight xl:tracking-[-2px] font-semibold text-center;
 }
 
 h2 {
-  @apply max-sm:text-xl text-3xl text-dark-200;
+  @apply block w-full max-sm:text-xl text-3xl text-dark-200 text-center;
+}
+
+h3 {
+  @apply text-center;
 }
 
 label {
@@ -81,11 +85,11 @@ form {
     @apply flex flex-col items-center gap-8 max-w-4xl text-center max-sm:gap-4;
   }
   .resumes-section {
-    @apply flex flex-wrap max-md:flex-col max-md:gap-4 gap-6 items-start max-md:items-center w-full max-w-[1850px] justify-evenly;
+    @apply flex flex-wrap max-md:flex-col max-md:gap-4 gap-6 items-stretch max-md:items-center w-full justify-center;
   }
 
   .resume-card {
-    @apply flex flex-col gap-8 h-[560px] w-[350px] lg:w-[430px] xl:w-[490px] bg-white rounded-2xl p-4;
+    @apply flex flex-col gap-4 h-auto w-[calc(33.333%-16px)] lg:w-[calc(33.333%-16px)] xl:w-[calc(33.333%-16px)] bg-white rounded-2xl p-4 flex-shrink-0;
   }
 
   .resume-card-header {
