@@ -1,3 +1,4 @@
+import { useEffect, type ReactNode } from "react";
 import {
   isRouteErrorResponse,
   Links,
@@ -7,6 +8,7 @@ import {
   ScrollRestoration,
 } from "react-router";
 
+import { usePuterStore } from "./lib/puter";
 import type { Route } from "./+types/root";
 import "./app.css";
 
@@ -23,28 +25,40 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-export function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        <script src="https://js.puter.com/v2/"></script>
+export function Layout({ children }: { children: ReactNode }) {
+  const init = usePuterStore((state) => state.init);
 
-        {children}
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-    </html>
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      const scriptSrc = "https://js.puter.com/v2/";
+      if (!document.querySelector(`script[src="${scriptSrc}"]`)) {
+        const script = document.createElement("script");
+        script.src = scriptSrc;
+        script.async = true;
+        document.body.appendChild(script);
+      }
+    }
+
+    init();
+  }, [init]);
+
+  return (
+    <>
+      <Meta />
+      <Links />
+      {children}
+      <ScrollRestoration />
+      <Scripts />
+    </>
   );
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <Layout>
+      <Outlet />
+    </Layout>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

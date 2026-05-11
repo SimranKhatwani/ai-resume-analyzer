@@ -3,7 +3,7 @@ import { create } from "zustand";
 declare global {
   interface Window {
     puter: {
-      auth: { 
+      auth: {
         getUser: () => Promise<PuterUser>;
         isSignedIn: () => Promise<boolean>;
         signIn: () => Promise<void>;
