@@ -4,13 +4,18 @@ import { useEffect, useState } from 'react'
 import { usePuterStore } from '~/lib/puter'
 
 
-const ResumeCard = ({resume:{id, companyName, jobTitle, feedback, imagePath}}: {resume} => {
-  const {fs} = usePuterStore();
-const [resumeUrl, setResumeUrl] = useState('');
+const ResumeCard = ({
+  resume: { id, companyName, jobTitle, feedback, imagePath },
+}: {
+  resume: Resume;
+}) => {
+  const { fs } = usePuterStore();
+
+  const [resumeUrl, setResumeUrl] = useState('');
   
 
-useEffect(effect () => {
-    const loadResume : = async () => {
+useEffect(() => {
+    const loadResume = async () => {
       const blob: any = await fs.read(imagePath);
       if (!blob) return;
       let url = URL.createObjectURL(blob);

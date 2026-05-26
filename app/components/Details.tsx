@@ -4,7 +4,7 @@ import {
   AccordionContent,
   AccordionHeader,
   AccordionItem,
-} from "../Accordion";
+} from "./Accordion";
 
 const ScoreBadge = ({ score }: { score: number }) => {
   return (
@@ -62,7 +62,7 @@ const CategoryContent = ({
   return (
     <div className="flex flex-col gap-4 items-center w-full">
       <div className="bg-gray-50 w-full rounded-lg px-5 py-4 grid grid-cols-2 gap-4">
-        {tips.map((tip, index) => (
+        {(tips || []).map((tip, index) => (
           <div className="flex flex-row gap-2 items-center" key={index}>
             <img
               src={
@@ -76,7 +76,7 @@ const CategoryContent = ({
         ))}
       </div>
       <div className="flex flex-col gap-4 w-full">
-        {tips.map((tip, index) => (
+        {(tips||[]).map((tip, index) => (
           <div
             key={index + tip.tip}
             className={cn(
@@ -109,6 +109,7 @@ const CategoryContent = ({
 const Details = ({ feedback }: { feedback: Feedback }) => {
   return (
     <div className="flex flex-col gap-4 w-full">
+     
       <Accordion>
         <AccordionItem id="tone-style">
           <AccordionHeader itemId="tone-style">

@@ -1,8 +1,5 @@
-/**
- * Formats bytes into a human-readable file size string
- * @param bytes - The number of bytes to format
- * @returns A human-readable file size string (e.g., "2.5 MB")
- */
+import clsx, { type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputes: ClassValue[]) {
   return twMerge(clsx(inputes));
