@@ -90,11 +90,15 @@ const Upload = () => {
         ? feedback.message.content
         : feedback?.message?.content?.[0]?.text || "";
 
-    try {
-      data.feedback = JSON.parse(feedbackText);
-    } catch {
-      data.feedback = feedbackText;
-    }
+   try {
+  const cleanedText = feedbackText
+    .replace(/```json/g, '')
+    .replace(/```/g, '')
+    .trim();
+  data.feedback = JSON.parse(cleanedText);
+} catch {
+  data.feedback = feedbackText;
+}
 
     await kv.set(`resume:${uuid}`, JSON.stringify(data));
     setStatusTest("Analysis complete! Redirecting...");

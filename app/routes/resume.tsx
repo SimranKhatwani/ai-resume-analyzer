@@ -33,6 +33,20 @@ useEffect(() => {
 
       const data :any = JSON.parse(resume)
    
+      if (typeof data.feedback === 'string') {
+    try {
+      const cleaned = data.feedback
+        .replace(/```json/g, '')
+        .replace(/```/g, '')
+        .trim();
+      data.feedback = JSON.parse(cleaned);
+    } catch {
+      console.log('feedback parse failed');
+    }
+  }
+
+
+
       const resumeBlob = await fs.read( data.resumePath) ;
       if (!resumeBlob) return;
 
@@ -47,14 +61,16 @@ useEffect(() => {
       setImageUrl(imageUrl);
 
       setFeedback(data.feedback);
-      console.log({resumeUrl, imageUrl, feedback:data.feedback});
+      console.log({ id, rawResume: resume, parsed: data, feedback: data.feedback });
+      console.log('overallScore from feedback:', data?.feedback?.overallScore);
+      console.log('ATS score from feedback:', data?.feedback?.ATS?.score);
     }
 
       loadResume();
     } , [id]);
 
   return (
-   <main className="pt-0">
+   <main className="pt-0" >
     <nav className="resume-nav">
  <Link to="/" className="back-button"> 
  <img src="/icons/back.svg" alt="logo" className="w-2.5 h-2.5"/> 

@@ -226,7 +226,7 @@ export const AIResponseFormat = `
       };
     }`;
 
-  export const prepareInstructions = ({
+ export const prepareInstructions = ({
   jobTitle,
   jobDescription,
   AIResponseFormat,
@@ -244,8 +244,12 @@ export const AIResponseFormat = `
   If provided, take the job description into consideration.
   The job title is: ${jobTitle}
   The job description is: ${jobDescription}
-  Provide the feedback using the following format: ${AIResponseFormat}
-  Return the analysis as a JSON object, without any other text and without the backticks.
-  Do not include any other text or comments.`;  
-
+  You MUST respond with ONLY a JSON object using EXACTLY these field names:
+  ${AIResponseFormat}
+  RULES:
+  - No backticks
+  - No markdown
+  - Start with { end with }
+  - Use EXACTLY the field names shown above (overallScore, ATS, toneAndStyle, content, structure, skills)
+  - Do NOT use different field names like overall_rating or ats_compatibility`;
     
